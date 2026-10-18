@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="How progressive web apps work: the web app manifest, service workers, and HTTPS.">
+  <title>Web App Basics | How PWAs work</title>
+  <!-- One shared stylesheet for the whole site -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Site header and main menu (identical on every page) -->
+  <header id="site-header">
+    <p class="site-name">Web App Basics</p>
+    <nav aria-label="Main menu">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="topic1.html" aria-current="page">How PWAs work</a></li>
+        <li><a href="topic2.html">Building a PWA</a></li>
+        <li><a href="concepts.html">Key concepts</a></li>
+        <li><a href="references.html">References</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Page content -->
+  <main>
+
+    <h1>How PWAs work</h1>
+
+    <p>
+      A PWA is an ordinary website with a few extra files and a secure connection.
+      The browser reads those files and gives the site abilities that normally belong
+      to installed apps. This page covers the three parts every PWA depends on.
+    </p>
+
+    <!-- Section 1: overview of the required parts -->
+    <h2>The three building blocks</h2>
+    <ol>
+      <li><strong>HTTPS.</strong> The site must be served over a secure connection. Browsers make an exception for <code>localhost</code> so developers can test.</li>
+      <li><strong>A web app manifest.</strong> A JSON file that describes the app to the browser.</li>
+      <li><strong>A service worker.</strong> A script that handles network requests and can serve saved copies of files.</li>
+    </ol>
+
+    <!-- Section 2: the manifest, with a table of its main members -->
+    <h2>The web app manifest</h2>
+    <p>
+      The manifest is linked from the HTML head with
+      <code>&lt;link rel="manifest" href="manifest.json"&gt;</code>.
+      When the browser finds a valid manifest, it knows what to call the app,
+      which icon to show, and which page to open first.
+    </p>
+
+    <table>
+      <caption>Common manifest members</caption>
+      <thead>
+        <tr>
+          <th scope="col">Member</th>
+          <th scope="col">What it controls</th>
+          <th scope="col">Example value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>name</code></td>
+          <td>The full app name shown during install</td>
+          <td>Weather Tracker</td>
+        </tr>
+        <tr>
+          <td><code>short_name</code></td>
+          <td>A shorter name for the home screen or dock</td>
+          <td>Weather</td>
+        </tr>
+        <tr>
+          <td><code>start_url</code></td>
+          <td>The page that opens when the app is launched</td>
+          <td>/index.html</td>
+        </tr>
+        <tr>
+          <td><code>display</code></td>
+          <td>Whether the app opens with or without browser controls</td>
+          <td>standalone</td>
+        </tr>
+        <tr>
+          <td><code>icons</code></td>
+          <td>Image files used for the app icon at several sizes</td>
+          <td>192 by 192 and 512 by 512 pixels</td>
+        </tr>
+        <tr>
+          <td><code>theme_color</code></td>
+          <td>The color of the app's title bar</td>
+          <td>#194124</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Section 3: service workers, with a diagram -->
+    <h2>Service workers</h2>
+    <p>
+      A service worker is a JavaScript file that the browser runs in the background,
+      separate from the web page. It cannot change the page directly. Instead, it
+      listens for events, and the most important one is <code>fetch</code>, which
+      fires whenever the page requests a file.
+    </p>
+
+    <figure>
+      <img src="images/pwa-architecture.png" width="800" height="400"
+           alt="Diagram showing a web page sending a request to a service worker, which then gets a saved copy from the cache or a fresh copy from the network.">
+      <figcaption>Figure 1. The service worker decides whether each request is answered from the cache or the network.</figcaption>
+    </figure>
+
+    <h3>What a service worker can do</h3>
+    <ul>
+      <li>Answer requests from a cache so the app loads without a connection.</li>
+      <li>Speed up repeat visits by skipping the network for files that rarely change.</li>
+      <li>Receive push messages from a server, if the user gives permission.</li>
+      <li>Retry failed requests later through background sync, in browsers that support it.</li>
+    </ul>
+
+    <!-- Section 4: browser support -->
+    <h2>Browser support</h2>
+    <p>
+      Service workers work in all current major browsers. Installing a site as an
+      app is handled differently by each browser and operating system, and some
+      features, such as push messages, are not available everywhere. Check the
+      current support tables on <a href="https://caniuse.com/serviceworkers">Can I use</a>
+      before relying on a feature.
+    </p>
+
+    <p>
+      The next page shows how to <a href="topic2.html">build and test a PWA</a>.
+    </p>
+
+  </main>
+
+  <!-- Footer: class project note with link to the class website -->
+  <footer>
+    <p>
+      This site is a class project for IT 3203.
+      Visit the <a href="https://ksuweb.github.io/IT3203/">class website</a>.
+    </p>
+  </footer>
+
+</body>
+</html>

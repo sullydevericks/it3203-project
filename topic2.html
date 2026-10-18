@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="How to build a progressive web app: caching strategies, a minimal service worker, and testing in Chrome DevTools.">
+  <title>Web App Basics | Building a PWA</title>
+  <!-- One shared stylesheet for the whole site -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Site header and main menu (identical on every page) -->
+  <header id="site-header">
+    <p class="site-name">Web App Basics</p>
+    <nav aria-label="Main menu">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="topic1.html">How PWAs work</a></li>
+        <li><a href="topic2.html" aria-current="page">Building a PWA</a></li>
+        <li><a href="concepts.html">Key concepts</a></li>
+        <li><a href="references.html">References</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Page content -->
+  <main>
+
+    <h1>Building a PWA</h1>
+
+    <p>
+      Turning a website into a PWA takes four steps: add a manifest, register a
+      service worker, choose how files are cached, and test the result. This page
+      walks through each step. The code samples are shown as text for study and
+      are not part of this site.
+    </p>
+
+    <!-- Section 1: caching strategies table -->
+    <h2>Choosing a caching strategy</h2>
+    <p>
+      A caching strategy is a rule that tells the service worker where to look
+      first for a file. Different kinds of files call for different rules.
+    </p>
+
+    <table>
+      <caption>Common caching strategies</caption>
+      <thead>
+        <tr>
+          <th scope="col">Strategy</th>
+          <th scope="col">How it works</th>
+          <th scope="col">Good for</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cache first</td>
+          <td>Look in the cache. Use the network only if the file is missing.</td>
+          <td>Images, fonts, and other files that rarely change</td>
+        </tr>
+        <tr>
+          <td>Network first</td>
+          <td>Try the network. Use the cache if the network fails.</td>
+          <td>Pages and data that should be as current as possible</td>
+        </tr>
+        <tr>
+          <td>Stale while revalidate</td>
+          <td>Show the cached file now, then update the cache from the network.</td>
+          <td>Content where a slightly old copy is acceptable</td>
+        </tr>
+        <tr>
+          <td>Network only</td>
+          <td>Always use the network and never store the response.</td>
+          <td>Payments and other requests that must not be cached</td>
+        </tr>
+        <tr>
+          <td>Cache only</td>
+          <td>Always use the cache and never contact the network.</td>
+          <td>Files saved during install that never change</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Section 2: lifecycle diagram and steps -->
+    <h2>The service worker lifecycle</h2>
+    <p>
+      A service worker moves through set stages. Each stage has an event that
+      developers can listen for in the service worker file.
+    </p>
+
+    <figure>
+      <img src="images/pwa-lifecycle.png" width="800" height="300"
+           alt="Diagram of four boxes in a row: register, install, activate, and fetch, joined by arrows.">
+      <figcaption>Figure 2. The four stages of a service worker.</figcaption>
+    </figure>
+
+    <ol>
+      <li><strong>Register.</strong> The page tells the browser where the service worker file is.</li>
+      <li><strong>Install.</strong> The browser downloads the file and the worker saves the app shell to the cache.</li>
+      <li><strong>Activate.</strong> The worker takes control and removes caches from older versions.</li>
+      <li><strong>Fetch.</strong> The worker answers every request the page makes.</li>
+    </ol>
+
+    <!-- Section 3: minimal code samples -->
+    <h2>A minimal service worker</h2>
+    <p>
+      First, the page registers the worker. This script goes in the HTML file.
+    </p>
+
+<pre><code>&lt;script&gt;
+  // Register only if the browser supports service workers
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js');
+  }
+&lt;/script&gt;</code></pre>
+
+    <p>
+      Next, the worker file <code>sw.js</code> caches the app shell and uses a
+      cache first strategy.
+    </p>
+
+<pre><code>const CACHE_NAME = 'app-shell-v1';
+const APP_SHELL = ['/', '/index.html', '/styles.css', '/app.js'];
+
+// Install: save the app shell
+self.addEventListener('install', (event) =&gt; {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) =&gt; cache.addAll(APP_SHELL))
+  );
+});
+
+// Activate: delete caches from older versions
+self.addEventListener('activate', (event) =&gt; {
+  event.waitUntil(
+    caches.keys().then((names) =&gt;
+      Promise.all(
+        names.filter((name) =&gt; name !== CACHE_NAME)
+             .map((name) =&gt; caches.delete(name))
+      )
+    )
+  );
+});
+
+// Fetch: answer from the cache, fall back to the network
+self.addEventListener('fetch', (event) =&gt; {
+  event.respondWith(
+    caches.match(event.request).then((cached) =&gt; cached || fetch(event.request))
+  );
+});</code></pre>
+
+    <!-- Section 4: testing -->
+    <h2>Testing a PWA</h2>
+    <p>
+      Chrome DevTools has an Application panel for checking each part of a PWA.
+    </p>
+    <ol>
+      <li>Open the site in Chrome and press F12 to open DevTools.</li>
+      <li>Select the <strong>Application</strong> tab.</li>
+      <li>Open <strong>Manifest</strong> to see the parsed manifest, its icons, and any errors.</li>
+      <li>Open <strong>Service workers</strong> to see whether the worker is active.</li>
+      <li>Open <strong>Cache storage</strong> to see which files were saved.</li>
+      <li>On the Service workers screen, tick <strong>Offline</strong> and reload to confirm the app still loads.</li>
+    </ol>
+    <p>
+      Lighthouse, the audit tool built into Chrome, is also useful for checking
+      speed, accessibility, and best practices. Recent versions of Lighthouse no
+      longer include a separate PWA score, so the Application panel is the main
+      way to check installability.
+    </p>
+
+  </main>
+
+  <!-- Footer: class project note with link to the class website -->
+  <footer>
+    <p>
+      This site is a class project for IT 3203.
+      Visit the <a href="https://ksuweb.github.io/IT3203/">class website</a>.
+    </p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Seven concepts to understand before building a progressive web app.">
+  <title>Web App Basics | Key concepts</title>
+  <!-- One shared stylesheet for the whole site -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Site header and main menu (identical on every page) -->
+  <header id="site-header">
+    <p class="site-name">Web App Basics</p>
+    <nav aria-label="Main menu">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="topic1.html">How PWAs work</a></li>
+        <li><a href="topic2.html">Building a PWA</a></li>
+        <li><a href="concepts.html" aria-current="page">Key concepts</a></li>
+        <li><a href="references.html">References</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Page content -->
+  <main>
+
+    <h1>Key concepts</h1>
+
+    <p>
+      These seven ideas come up in almost every PWA tutorial. Each card gives a
+      short explanation.
+    </p>
+
+    <!-- CSS grid container: each concept is one card -->
+    <div class="concept-grid">
+
+      <section class="card">
+        <h2>Service worker</h2>
+        <p>
+          A script that runs in the background and sits between the page and the
+          network. It can answer requests from a cache, which is what makes offline
+          use possible.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Web app manifest</h2>
+        <p>
+          A JSON file that tells the browser the app's name, icons, colors, and
+          start page. Without it, the browser has no information to build an
+          install prompt or app icon.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>HTTPS</h2>
+        <p>
+          Service workers can read and change network traffic, so browsers allow
+          them only on secure origins. Local testing on <code>localhost</code> is the
+          one exception.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Cache API</h2>
+        <p>
+          A browser storage system for request and response pairs. A service worker
+          uses it to save files during install and to read them back later.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>App shell</h2>
+        <p>
+          The smallest set of HTML, CSS, and JavaScript that draws the app's frame.
+          Caching the shell lets the interface appear at once, even before any data
+          arrives.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Offline first</h2>
+        <p>
+          A design approach that treats a missing connection as a normal state. The
+          app works from saved data first and syncs with the server when it can.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Installability</h2>
+        <p>
+          A browser can offer to add a PWA to the home screen, dock, or app list
+          when the site meets its requirements. The requirements differ between
+          browsers, but a valid manifest and HTTPS are always part of them.
+        </p>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- Footer: class project note with link to the class website -->
+  <footer>
+    <p>
+      This site is a class project for IT 3203.
+      Visit the <a href="https://ksuweb.github.io/IT3203/">class website</a>.
+    </p>
+  </footer>
+
+</body>
+</html>

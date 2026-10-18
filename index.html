@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="An introduction to progressive web apps: what they are, how they work, and how to build one.">
+  <title>Web App Basics | Home</title>
+  <!-- One shared stylesheet for the whole site -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Site header and main menu (identical on every page) -->
+  <header id="site-header">
+    <p class="site-name">Web App Basics</p>
+    <nav aria-label="Main menu">
+      <ul>
+        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li><a href="topic1.html">How PWAs work</a></li>
+        <li><a href="topic2.html">Building a PWA</a></li>
+        <li><a href="concepts.html">Key concepts</a></li>
+        <li><a href="references.html">References</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Page content -->
+  <main>
+
+    <!-- Cover section: title and abstract -->
+    <h1>Progressive web apps: websites that behave like apps</h1>
+
+    <p class="intro">
+      A progressive web app (PWA) is a website built with standard web technologies
+      that can be installed on a device, load without a network connection, and send
+      notifications. This site explains how PWAs work, how developers build them, and
+      which ideas a beginner should learn first. The topic goes beyond basic HTML and
+      CSS and connects to JavaScript, browser storage, and web security.
+    </p>
+
+    <!-- Key terms used throughout the site -->
+    <h2>Key terms</h2>
+    <dl>
+      <dt>Progressive web app (PWA)</dt>
+      <dd>A website that uses a manifest and a service worker so it can be installed and used offline.</dd>
+
+      <dt>Service worker</dt>
+      <dd>A JavaScript file that runs in the background and controls how a page gets its files.</dd>
+
+      <dt>Web app manifest</dt>
+      <dd>A JSON file that gives the browser the app name, icons, colors, and start page.</dd>
+
+      <dt>App shell</dt>
+      <dd>The minimum HTML, CSS, and JavaScript needed to show the app's basic interface.</dd>
+
+      <dt>Cache API</dt>
+      <dd>A browser feature for storing copies of network responses on the device.</dd>
+
+      <dt>Installability</dt>
+      <dd>The ability of a browser to add a site to the home screen, dock, or app list.</dd>
+    </dl>
+
+    <!-- Table of contents with links to every other page -->
+    <h2>Table of contents</h2>
+    <ul>
+      <li>
+        <a href="topic1.html">How PWAs work</a>:
+        the manifest, the service worker, and the role of HTTPS.
+      </li>
+      <li>
+        <a href="topic2.html">Building a PWA</a>:
+        caching strategies, a minimal service worker, and testing.
+      </li>
+      <li>
+        <a href="concepts.html">Key concepts</a>:
+        seven ideas to understand before building a PWA.
+      </li>
+      <li>
+        <a href="references.html">References</a>:
+        sources for this site and good places to keep learning.
+      </li>
+      <li>
+        <a href="about.html">About</a>:
+        the author and the purpose of this project.
+      </li>
+    </ul>
+
+  </main>
+
+ <!-- Footer: class project note with link to the class website -->
+  <footer>
+    <p>
+      This site is a class project for IT 3203.
+      Visit the <a href="https://ksuweb.github.io/IT3203/">class website</a>.
+    </p>
+  </footer>
+
+</body>
+</html>

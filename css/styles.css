@@ -1,0 +1,276 @@
+/* ==========================================================
+   styles.css
+   IT 3203 Web Development Project, Milestone 1
+   Topic: Progressive web apps
+
+   One stylesheet for the whole site. Sections:
+   1. Base styles and fonts
+   2. Header and main menu
+   3. Page layout
+   4. Headings, text, lists, and links
+   5. Intro box, cards, and concept grid
+   6. Tables
+   7. Images and code samples
+   8. Footer
+   ========================================================== */
+
+
+/* ===== 1. Base styles and fonts (element selectors) ===== */
+
+/* Body text is Times New Roman; headings use a separate serif font */
+body {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 20px;
+  line-height: 1.6;
+  color: #111111;
+  background-color: #f3f5f0;
+  margin: 0;
+}
+
+h1, h2, h3 {
+  font-family: "Palantino Linotype", Palantino, "Book Antiqua", Georgia, serif;
+  color: #194124;
+  line-height: 1.25;
+}
+
+
+/* ===== 2. Header and main menu ===== */
+
+/* ID selector: the header appears once per page */
+#site-header {
+  background-color: #381701;
+  padding: 18px 24px;
+  border-bottom: 4px solid #274e1b;
+}
+
+/* Site name shown above the menu on every page */
+.site-name {
+  margin: 0 0 12px 0;
+  font-family: "Palantino Linotype", Palantino, "Book Antiqua", Georgia, serif;
+  font-size: 1.5rem;
+  color: #ffffff;
+}
+
+/* Flexbox lays the menu items out in a row and wraps them if needed */
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Descendant selector: only links inside the nav */
+nav a {
+  display: block;
+  padding: 8px 14px;
+  color: #ffffff;
+  text-decoration: none;
+  border: 1px solid #a8c3a0;
+  border-radius: 4px;
+}
+
+/* Hover effect: invert the colors */
+nav a:hover {
+  background-color: #ffffff;
+  color: #3d2009;
+}
+
+/* Attribute selector: highlights the link for the page being viewed */
+nav a[aria-current="page"] {
+  background-color: #245016;
+  color: #111111;
+  font-weight: bold;
+}
+
+
+/* ===== 3. Page layout ===== */
+
+/* Centers the content and limits line length for readability */
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px;
+  background-color: #ffffff;
+  border-left: 1px solid #194d17;
+  border-right: 1px solid #1c5a24;
+}
+
+
+/* ===== 4. Headings, text, lists, and links ===== */
+
+h1 {
+  margin-top: 0;
+  font-size: 2rem;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #1c5a24;
+}
+
+h2 {
+  margin-top: 36px;
+  font-size: 1.5rem;
+}
+
+h3 {
+  margin-top: 24px;
+  font-size: 1.2rem;
+}
+
+ul, ol {
+  margin: 12px 0;
+  padding-left: 28px;
+}
+
+li {
+  margin-bottom: 6px;
+}
+
+/* Definition lists are used for key terms */
+dt {
+  margin-top: 12px;
+  font-weight: bold;
+  color: #2d4a35;
+}
+
+dd {
+  margin: 2px 0 0 0;
+}
+
+/* Links in the page content: green, with a hover color change and underline */
+main a {
+  color: #30af10;
+}
+
+main a:hover {
+  color: #3fe64d;
+  text-decoration: underline;
+}
+
+
+/* ===== 5. Intro box, cards, and concept grid ===== */
+
+/* Class selector: summary paragraph at the top of the home page */
+.intro {
+  padding: 14px 18px;
+  background-color: #e4eee0;
+  border-left: 5px solid #2d4a35;
+}
+
+/* Class selector: a bordered box used for each key concept */
+.card {
+  padding: 16px 20px;
+  background-color: #154d1c;
+  border: 1px solid #15501f;
+  border-radius: 6px;
+}
+
+.card h2 {
+  margin-top: 0;
+  font-size: 1.2rem;
+  color:#000000;
+}
+
+.card p {
+  margin: 0;
+}
+
+/* CSS grid: cards fill the row and wrap to new rows on narrower screens */
+.concept-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 16px;
+}
+
+
+/* ===== 6. Tables ===== */
+
+table {
+  width: 100%;
+  margin: 16px 0;
+  border-collapse: collapse;
+}
+
+caption {
+  padding-bottom: 8px;
+  text-align: left;
+  font-weight: bold;
+  color: #2d4a35;
+}
+
+th, td {
+  padding: 10px 12px;
+  border: 1px solid #1e6132;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background-color: #255214;
+}
+
+/* Light stripes make long rows easier to follow */
+tbody tr:nth-child(even) {
+  background-color: #185e24;
+}
+
+
+/* ===== 7. Images and code samples ===== */
+
+/* Images never grow wider than their container */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+figure {
+  margin: 20px 0;
+  padding: 12px;
+  border: 1px solid #185c18;
+  background-color: #ffffff;
+}
+
+figcaption {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: #444444;
+}
+
+/* Code samples: monospace font on a light background */
+pre {
+  padding: 14px;
+  overflow-x: auto;
+  background-color: #18581d;
+  border: 1px solid #175825;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+code {
+  font-family: "Courier New", Courier, monospace;
+}
+
+
+/* ===== 8. Footer ===== */
+
+footer {
+  padding: 16px 24px;
+  background-color: #472910;
+  color: #ffffff;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+footer p {
+  margin: 0;
+}
+
+footer a {
+  color: #e3c9a0;
+}
+
+footer a:hover {
+  color: #ffffff;
+}

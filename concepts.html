@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Seven concepts to understand before building a progressive web app.">
+  <meta name="description" content="Ten concepts to understand before building a progressive web app.">
   <title>Web App Basics | Key concepts</title>
   <!-- One shared stylesheet for the whole site -->
   <link rel="stylesheet" href="css/styles.css">
@@ -19,6 +19,7 @@
         <li><a href="topic1.html">How PWAs work</a></li>
         <li><a href="topic2.html">Building a PWA</a></li>
         <li><a href="concepts.html" aria-current="page">Key concepts</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
         <li><a href="references.html">References</a></li>
         <li><a href="about.html">About</a></li>
       </ul>
@@ -31,7 +32,7 @@
     <h1>Key concepts</h1>
 
     <p>
-      These seven ideas come up in almost every PWA tutorial. Each card gives a
+      These ten ideas come up in almost every PWA tutorial. Each card gives a
       short explanation.
     </p>
 
@@ -96,6 +97,31 @@
           A browser can offer to add a PWA to the home screen, dock, or app list
           when the site meets its requirements. The requirements differ between
           browsers, but a valid manifest and HTTPS are always part of them.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Progressive enhancement</h2>
+        <p>
+          The basic page works in every browser. Extras such as offline use are
+          added when the browser supports them, for example by checking for
+          support before registering a service worker.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Push notifications</h2>
+        <p>
+          A server can send messages to an installed app even when it is closed.
+          This needs a service worker and the user's permission.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Background sync</h2>
+        <p>
+          The browser retries a failed request when the connection returns.
+          Support is limited, so check Can I use before relying on it.
         </p>
       </section>
 

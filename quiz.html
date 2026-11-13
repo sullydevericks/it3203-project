@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A ten-question quiz with a ten-minute timer to test what you learned about progressive web apps.">
+  <title>Web App Basics | Quiz</title>
+  <!-- One shared stylesheet for the whole site -->
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Quiz logic. "defer" waits until the page is parsed, so the form exists when the script runs -->
+  <script src="js/quiz.js" defer></script>
+</head>
+<body>
+
+  <!-- Site header and main menu (identical on every page) -->
+  <header id="site-header">
+    <p class="site-name">Web App Basics</p>
+    <nav aria-label="Main menu">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="topic1.html">How PWAs work</a></li>
+        <li><a href="topic2.html">Building a PWA</a></li>
+        <li><a href="concepts.html">Key concepts</a></li>
+        <li><a href="quiz.html" aria-current="page">Quiz</a></li>
+           <li><a href="references.html">References</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Page content -->
+  <main>
+
+    <h1>Quiz: test what you learned</h1>
+
+    <!-- Rules and the Start button. quiz.js hides this box once the quiz begins -->
+    <section id="quiz-intro" class="quiz-intro">
+      <h2>Before you start</h2>
+      <ul>
+        <li>The quiz has 10 questions, worth 1 point each.</li>
+        <li>You have 10 minutes. The quiz submits itself when time runs out.</li>
+        <li>You need 7 points (70%) to pass.</li>
+        <li>You can retake the quiz as many times as you like.</li>
+      </ul>
+      <p>The timer starts when you press the button.</p>
+      <button type="button" id="start-btn" class="btn">Start quiz</button>
+    </section>
+
+    <!-- Results panel. quiz.js fills it in after submission. It sits above the form so
+         the score appears at the top of the page. tabindex lets the script move focus here -->
+    <div id="results" class="results" aria-live="polite" tabindex="-1" hidden></div>
+
+    <!-- Countdown bar. It stays at the top of the screen while the quiz is open -->
+    <div id="timer-bar" class="quiz-timer" hidden>
+      <span>Time left</span>
+      <span id="time-left" class="time" role="timer">10:00</span>
+    </div>
+
+    <!-- Quiz form. "novalidate" because the script does the checking and blank answers are allowed -->
+    <form id="quiz-form" class="quiz-form" novalidate hidden>
+
+      <!-- Question 1: multiple choice (radio buttons, one correct answer) -->
+      <fieldset class="question" id="q1">
+        <legend><span class="q-number">Question 1</span> What does a service worker sit between?</legend>
+        <p class="hint">Choose one answer.</p>
+        <label class="option"><input type="radio" name="q1" value="a"><span>The browser and the operating system</span></label>
+        <label class="option"><input type="radio" name="q1" value="b"><span>The web page and the network</span></label>
+        <label class="option"><input type="radio" name="q1" value="c"><span>The HTML and the CSS</span></label>
+        <label class="option"><input type="radio" name="q1" value="d"><span>The server and its database</span></label>
+      </fieldset>
+
+      <!-- Question 2: multiple choice -->
+      <fieldset class="question" id="q2">
+        <legend><span class="q-number">Question 2</span> Which file tells the browser an app's name, icons, and start page?</legend>
+        <p class="hint">Choose one answer.</p>
+        <label class="option"><input type="radio" name="q2" value="a"><span>The web app manifest</span></label>
+        <label class="option"><input type="radio" name="q2" value="b"><span>The service worker file</span></label>
+        <label class="option"><input type="radio" name="q2" value="c"><span>The stylesheet</span></label>
+        <label class="option"><input type="radio" name="q2" value="d"><span>The favicon</span></label>
+      </fieldset>
+
+      <!-- Question 3: multiple choice -->
+      <fieldset class="question" id="q3">
+        <legend><span class="q-number">Question 3</span> Which caching strategy looks in the cache first and uses the network only when the file is missing?</legend>
+        <p class="hint">Choose one answer.</p>
+        <label class="option"><input type="radio" name="q3" value="a"><span>Network first</span></label>
+        <label class="option"><input type="radio" name="q3" value="b"><span>Network only</span></label>
+        <label class="option"><input type="radio" name="q3" value="c"><span>Cache first</span></label>
+        <label class="option"><input type="radio" name="q3" value="d"><span>Stale while revalidate</span></label>
+      </fieldset>
+
+      <!-- Question 4: multiple choice -->
+      <fieldset class="question" id="q4">
+        <legend><span class="q-number">Question 4</span> Which stage of the service worker lifecycle usually saves the app shell to the cache?</legend>
+        <p class="hint">Choose one answer.</p>
+        <label class="option"><input type="radio" name="q4" value="a"><span>Register</span></label>
+        <label class="option"><input type="radio" name="q4" value="b"><span>Activate</span></label>
+        <label class="option"><input type="radio" name="q4" value="c"><span>Fetch</span></label>
+        <label class="option"><input type="radio" name="q4" value="d"><span>Install</span></label>
+      </fieldset>
+
+      <!-- Question 5: fill in the blank (text box inside the sentence) -->
+      <fieldset class="question" id="q5">
+        <legend><span class="q-number">Question 5</span> A PWA must be served over <input type="text" name="q5" class="answer-input" autocomplete="off" aria-label="Answer for question 5"> so the browser can trust it. Only localhost is exempt, for testing.</legend>
+        <p class="hint">Type one word in the box.</p>
+      </fieldset>
+
+      <!-- Question 6: fill in the blank -->
+      <fieldset class="question" id="q6">
+        <legend><span class="q-number">Question 6</span> A service worker listens for the <input type="text" name="q6" class="answer-input" autocomplete="off" aria-label="Answer for question 6"> event, which fires whenever the page requests a file.</legend>
+        <p class="hint">Type one word in the box.</p>
+      </fieldset>
+
+      <!-- Question 7: fill in the blank -->
+      <fieldset class="question" id="q7">
+        <legend><span class="q-number">Question 7</span> The smallest set of HTML, CSS, and JavaScript that draws an app's frame is called the app <input type="text" name="q7" class="answer-input" autocomplete="off" aria-label="Answer for question 7">.</legend>
+        <p class="hint">Type one word in the box.</p>
+      </fieldset>
+
+      <!-- Question 8: multi-select (checkboxes, more than one correct answer) -->
+      <fieldset class="question" id="q8">
+        <legend><span class="q-number">Question 8</span> Which of these can a service worker do?</legend>
+        <p class="hint">Select all that apply.</p>
+        <label class="option"><input type="checkbox" name="q8" value="a"><span>Answer requests from a cache so the app loads without a connection</span></label>
+        <label class="option"><input type="checkbox" name="q8" value="b"><span>Change the page's HTML directly</span></label>
+        <label class="option"><input type="checkbox" name="q8" value="c"><span>Receive push messages from a server, if the user gives permission</span></label>
+        <label class="option"><input type="checkbox" name="q8" value="d"><span>Read files from the user's hard drive</span></label>
+      </fieldset>
+
+      <!-- Question 9: multi-select -->
+      <fieldset class="question" id="q9">
+        <legend><span class="q-number">Question 9</span> Which of these are members of a web app manifest?</legend>
+        <p class="hint">Select all that apply.</p>
+        <label class="option"><input type="checkbox" name="q9" value="a"><span><code>name</code></span></label>
+        <label class="option"><input type="checkbox" name="q9" value="b"><span><code>start_url</code></span></label>
+        <label class="option"><input type="checkbox" name="q9" value="c"><span><code>cache_name</code></span></label>
+        <label class="option"><input type="checkbox" name="q9" value="d"><span><code>theme_color</code></span></label>
+      </fieldset>
+
+      <!-- Question 10: true or false (radio buttons, one correct answer) -->
+      <fieldset class="question" id="q10">
+        <legend><span class="q-number">Question 10</span> True or false: with the stale while revalidate strategy, the app shows the cached file right away and then updates the cache from the network.</legend>
+        <p class="hint">Choose one answer.</p>
+        <label class="option"><input type="radio" name="q10" value="t"><span>True</span></label>
+        <label class="option"><input type="radio" name="q10" value="f"><span>False</span></label>
+      </fieldset>
+
+      <!-- Submit grades the quiz. Reset clears everything (quiz.js listens for the reset event) -->
+      <div class="form-buttons">
+        <button type="submit" class="btn">Submit quiz</button>
+        <button type="reset" class="btn btn-secondary">Reset</button>
+      </div>
+
+    </form>
+
+  </main>
+
+  <!-- Footer: class project note with link to the class website -->
+  <footer>
+    <p>
+      This site is a class project for IT 3203.
+      Visit the <a href="https://ksuweb.github.io/IT3203/">class website</a>.
+    </p>
+  </footer>
+
+</body>
+</html>

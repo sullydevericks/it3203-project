@@ -19,6 +19,7 @@
         <li><a href="topic1.html">How PWAs work</a></li>
         <li><a href="topic2.html" aria-current="page">Building a PWA</a></li>
         <li><a href="concepts.html">Key concepts</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
         <li><a href="references.html">References</a></li>
         <li><a href="about.html">About</a></li>
       </ul>
@@ -148,7 +149,14 @@ self.addEventListener('fetch', (event) =&gt; {
     caches.match(event.request).then((cached) =&gt; cached || fetch(event.request))
   );
 });</code></pre>
-
+<!-- Section 3b: updating a service worker -->
+    <h2>Updating a service worker</h2>
+    <p>
+      When you change your cached files, also change the cache name in the
+      service worker, for example from <code>app-shell-v1</code> to
+      <code>app-shell-v2</code>. The activate step then deletes the old caches,
+      so visitors get the new files.
+    </p>
     <!-- Section 4: testing -->
     <h2>Testing a PWA</h2>
     <p>

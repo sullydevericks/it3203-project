@@ -80,7 +80,7 @@ nav a:hover {
 /* Attribute selector: highlights the link for the page being viewed */
 nav a[aria-current="page"] {
   background-color: #245016;
-  color: #111111;
+  color: #ffffff;
   font-weight: bold;
 }
 
@@ -139,11 +139,11 @@ dd {
 
 /* Links in the page content: green, with a hover color change and underline */
 main a {
-  color: #30af10;
+  color: #1a6b2c;
 }
 
 main a:hover {
-  color: #3fe64d;
+  color: #0e3d19;
   text-decoration: underline;
 }
 
@@ -168,11 +168,16 @@ main a:hover {
 .card h2 {
   margin-top: 0;
   font-size: 1.2rem;
-  color:#000000;
+  color:#ffffff;
 }
 
 .card p {
   margin: 0;
+  color: #ffffff;
+}
+
+.card a {
+  color: #cfeec0;
 }
 
 /* CSS grid: cards fill the row and wrap to new rows on narrower screens */
@@ -207,12 +212,13 @@ th, td {
 }
 
 th {
-  background-color: #255214;
+  background-color: #194124;
+  color: #ffffff;
 }
 
 /* Light stripes make long rows easier to follow */
 tbody tr:nth-child(even) {
-  background-color: #185e24;
+  background-color: #e4eee0;
 }
 
 
@@ -241,7 +247,8 @@ figcaption {
 pre {
   padding: 14px;
   overflow-x: auto;
-  background-color: #18581d;
+  background-color: #14301a;
+  color: #f1f5ee;
   border: 1px solid #175825;
   border-radius: 4px;
   font-size: 0.85rem;
@@ -272,5 +279,373 @@ footer a {
 }
 
 footer a:hover {
+  color: #ffffff;
+}
+
+
+/* ===== 9. Quiz page ===== */
+
+/* Colors used by the quiz, defined once so they are easy to change */
+:root {
+  --color-green: #194124;
+  --color-brown: #6b4423;
+  --color-pale: #e4eee0;
+  --color-line: #c8d0c0;
+  --color-pass: #1f6b3a;
+  --color-pass-bg: #e6f3e8;
+  --color-fail: #9b2c2c;
+  --color-fail-bg: #fbeceb;
+}
+
+/* The hidden attribute must win over any display rule below */
+[hidden] {
+  display: none !important;
+}
+
+/* Rules box at the top of the quiz page */
+.quiz-intro {
+  padding: 16px 20px;
+  background-color: var(--color-pale);
+  border-left: 5px solid var(--color-green);
+}
+
+.quiz-intro h2 {
+  margin-top: 0;
+}
+
+/* Buttons: filled green by default, inverted on hover */
+.btn {
+  display: inline-block;
+  padding: 10px 22px;
+  font: inherit;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: var(--color-green);
+  border: 2px solid var(--color-green);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  color: var(--color-green);
+  background-color: #ffffff;
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--color-brown);
+  outline-offset: 2px;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Outlined brown button for Reset */
+.btn-secondary {
+  color: var(--color-brown);
+  background-color: #ffffff;
+  border-color: var(--color-brown);
+}
+
+.btn-secondary:hover {
+  color: #ffffff;
+  background-color: var(--color-brown);
+}
+
+.form-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* Countdown bar: sticks to the top of the screen while the quiz is open */
+.quiz-timer {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 16px 0;
+  padding: 10px 16px;
+  font-weight: bold;
+  background-color: #ffffff;
+  border: 2px solid var(--color-green);
+  border-radius: 4px;
+}
+
+.quiz-timer .time {
+  font-size: 1.4rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-green);
+}
+
+/* Last minute: the bar turns red */
+.quiz-timer.low {
+  border-color: var(--color-fail);
+}
+
+.quiz-timer.low .time {
+  color: var(--color-fail);
+}
+
+/* One bordered box per question */
+.question {
+  margin: 0 0 20px;
+  padding: 16px 20px 12px;
+  background-color: #fafaf7;
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
+}
+
+/* A floated legend wraps like normal text instead of sitting on the border line */
+.question legend {
+  float: left;
+  width: 100%;
+  margin: 0 0 10px;
+  padding: 0;
+  font-weight: bold;
+}
+
+.question legend + * {
+  clear: both;
+}
+
+.question::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.q-number {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-brown);
+}
+
+.hint {
+  margin: 0 0 6px;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* Each choice is a whole clickable row */
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 4px 0;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.option:hover {
+  background-color: var(--color-pale);
+  border-color: var(--color-line);
+}
+
+.option input {
+  flex-shrink: 0;
+  width: 1.15em;
+  height: 1.15em;
+  margin: 0.25em 0 0;
+  accent-color: var(--color-green);
+}
+
+/* Fill-in-the-blank text box that sits inside the sentence */
+.answer-input {
+  width: 9em;
+  max-width: 100%;
+  margin: 0 4px;
+  padding: 3px 8px;
+  font: inherit;
+  font-weight: normal;
+  color: #111111;
+  background-color: #ffffff;
+  border: 2px solid #8a9a82;
+  border-radius: 4px;
+}
+
+.answer-input:focus {
+  border-color: var(--color-green);
+  outline: 2px solid #a8c3a0;
+}
+
+/* After grading, each question box takes the color of its result */
+.question.correct {
+  background-color: var(--color-pass-bg);
+  border: 2px solid var(--color-pass);
+}
+
+.question.incorrect {
+  background-color: var(--color-fail-bg);
+  border: 2px solid var(--color-fail);
+}
+
+/* Results panel */
+.results {
+  margin: 24px 0;
+  padding: 16px 20px;
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
+}
+
+.results:focus {
+  outline: none;
+}
+
+.results h2 {
+  margin-top: 0;
+}
+
+.result-banner {
+  padding: 12px 18px;
+  border: 2px solid;
+  border-radius: 6px;
+}
+
+.result-banner p {
+  margin: 4px 0;
+}
+
+.result-banner.pass {
+  color: #14472a;
+  background-color: var(--color-pass-bg);
+  border-color: var(--color-pass);
+}
+
+.result-banner.fail {
+  color: #7a1f1f;
+  background-color: var(--color-fail-bg);
+  border-color: var(--color-fail);
+}
+
+.result-status {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.result-score {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.time-note {
+  font-style: italic;
+  color: var(--color-fail);
+}
+
+/* Four summary tiles in a CSS grid */
+.result-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stat {
+  margin: 0;
+  padding: 10px 14px;
+  text-align: center;
+  background-color: #ffffff;
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.85rem;
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-green);
+}
+
+.stat-value.good {
+  color: var(--color-pass);
+}
+
+.stat-value.bad {
+  color: var(--color-fail);
+}
+
+/* Question-by-question review */
+.review-list {
+  margin: 12px 0 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.review-item {
+  margin: 0 0 12px;
+  padding: 10px 16px;
+  border-left: 6px solid;
+  border-radius: 4px;
+}
+
+.review-item p {
+  margin: 4px 0;
+}
+
+.review-item.correct {
+  background-color: var(--color-pass-bg);
+  border-left-color: var(--color-pass);
+}
+
+.review-item.incorrect {
+  background-color: var(--color-fail-bg);
+  border-left-color: var(--color-fail);
+}
+
+.review-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.badge {
+  padding: 2px 10px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #ffffff;
+  border-radius: 12px;
+}
+
+.review-item.correct .badge {
+  background-color: var(--color-pass);
+}
+
+.review-item.incorrect .badge {
+  background-color: var(--color-fail);
+}
+
+.points {
+  margin-left: auto;
+  font-weight: bold;
+}
+
+.review-question {
+  font-style: italic;
+}
+
+.explanation {
+  font-size: 0.95rem;
+}
+
+/* Current page in the menu: white text so it stays readable on the dark green tab */
+nav a[aria-current="page"] {
   color: #ffffff;
 }
